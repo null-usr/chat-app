@@ -1,0 +1,27 @@
+.sidebar{
+	border: 2px solid #0091ff;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+
+	color: white;
+	padding: 10px;
+}
+
+.server-list-container{
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+.server-list-item{
+	border: 2px solid white;
+	border-radius: 3px;
+	padding: 2px;
+}
+
+.server-list-item:hover{
+	color: black;
+	background-color: white;
+	cursor: pointer;
+}

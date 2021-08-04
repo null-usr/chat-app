@@ -1,0 +1,13 @@
+www
+node_modules
+build
+dist
+npm-debug.log
+.env
+.DS_Store
+database.json
+Archive.zip
+# Elastic Beanstalk Files
+#.elasticbeanstalk/*
+#!.elasticbeanstalk/*.cfg.yml
+#!.elasticbeanstalk/*.global.yml
