@@ -15,12 +15,13 @@ import Chat from './components/Chat';
 
 function App() {
 
-  //states and inputs
-  //before login
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [room, setRoom] = useState('Void');
-  const [userName, setUserName] = useState('');
+	//states and inputs
+	//before login
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [room, setRoom] = useState('Void');
+	const [userName, setUserName] = useState('');
 
+  //MOVED TO CONTEXT
   //useEffect for whenever we log into the application, we can do this
 //   useEffect(() => {
 //     //initializes the connection
@@ -28,22 +29,37 @@ function App() {
 //   }, [CONNECTION_PORT]); //called infinitely unless we pass it something to monitor for a change
 
 
-  //callbacks ========================================================
-  //for connecting to our room
-  const connectToRoom = () => {
-	if(userName){
+  	//callbacks =============================================================
+  	//for connecting to our room
+	const connectToRoom = (room) => {
+
+	console.log(`Room and Username: ${room} ${userName}`);
+
+	if(userName && room && room !== "Void"){
 		socket.emit('join_room', room );
 		console.log("Joined room");
 		setLoggedIn(true);
 	}
 	else{
-		alert("Please input a username!");
+		if(!userName){
+			alert("Please input a username!");
+		}
+		if(!room){
+			alert("Please input a server name or join an existing server!");
+		}
+		if(room === "Void"){
+			alert("You're already in the void! Scream.");
+		}
+		
 	}
+
   }
 
+  //for disconnecting
   const disconnectFromRoom = () => {
 	  socket.emit('leave_room');
 	  console.log("Left room");
+	  setRoom('Void');
 	  setLoggedIn(false);
   }
 
@@ -52,37 +68,38 @@ function App() {
 		
       {/* HEADER */}
       <div>
-		<Header></Header>
+		<Header room={room}></Header>
 
 		{/* https://dev.to/bravemaster619/how-to-use-socket-io-client-correctly-in-react-app-o65 */}
 		<SocketContext.Provider value={socket}>
-			{
-				!loggedIn ? 
-				(
-					<div className="main-content">
-						<Sidebar 
-							setRoom={setRoom} 
-							connectToRoom={connectToRoom}></Sidebar>
-						<Login userName={userName} setUserName={setUserName} setRoom={setRoom} connectToRoom={connectToRoom}></Login>
-					</div>
-				) : 
-				(
-					<div>
-						<div className="main-content">
-							<Sidebar 
-								setRoom={setRoom} 
-								connectToRoom={connectToRoom}></Sidebar>
+			
+				<div className="main-content">
+					<Sidebar 
+						setRoom={setRoom} 
+						connectToRoom={connectToRoom}></Sidebar>
+
+					{/* replace this section with either the login or chat */}
+					{
+						!loggedIn ? 
+						(
+							<Login userName={userName} setUserName={setUserName} setRoom={setRoom} connectToRoom={connectToRoom}></Login>
+						) : 
+						(
 							<Chat userName={userName} room={room}></Chat>
-						</div>
-						{/* back button */}
+						)
+					}
+				</div>
+
+				{/* back button */}
+				{
+					loggedIn && 
 						<button onClick={disconnectFromRoom} className="back-button">
 							&larr;
 							EXIT
-						</button>
-					</div>
-					
-				)
-			}
+						</button>	
+				}
+
+			
 		</SocketContext.Provider>
 		
       </div>

@@ -37,7 +37,7 @@ function Sidebar({setRoom, connectToRoom}) {
 	const connectToExistingRoom = (room) => {
 		console.log(`Connecting to existing room: ${room}`);
 		setRoom(room);
-		connectToRoom();
+		connectToRoom(room);
 	}
 
 	return (

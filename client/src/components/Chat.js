@@ -17,7 +17,11 @@ function Chat({userName, room}) {
 	useEffect(() => {
 		socket.on('rcv_message', (data) => {
 			console.log(`Received: ${data}`);
-		  	setMessageList([...messageList, data]);
+			setMessageList([...messageList, data]);
+
+			//scroll to bottom of message list
+			let msgbox = document.getElementById('message-box');
+			msgbox.scrollTop = msgbox.scrollHeight;
 		});
 	  });
 
@@ -28,6 +32,7 @@ function Chat({userName, room}) {
 		author: userName,
 		message: message
 		}
+		
 		let messageContent = {
 			room: room,
 			content: content
@@ -65,8 +70,8 @@ function Chat({userName, room}) {
 				{/* https://stackoverflow.com/questions/63550906/clear-input-field-using-react-hooks */}
 				<input type="text" value={message} 
 					placeholder="Message..." 
-					onChange={ (e) => {setMessage(e.target.value)} }
-					onKeyPress={handleKeyPress} />
+					onChange={ (e) => { setMessage(e.target.value)} }
+					onKeyPress={ handleKeyPress } />
 				<button onClick={ sendMessage } >Send</button>
 			</div>
     	</div>

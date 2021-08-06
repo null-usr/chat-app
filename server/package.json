@@ -10,7 +10,7 @@
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/ || true",
-    "build:windows": "yarn clean && yarn tsc && cp package.json dist/",
+    "build:windows": "yarn clean && yarn tsc && cp production_package.json dist/package.json",
     "start": "node server.js"
   },
   "keywords": [],

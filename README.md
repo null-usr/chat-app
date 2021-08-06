@@ -57,13 +57,11 @@ Deploys the application to heroku.
 
 ## To Do
 - [ ] Docs
-- [ ] Debug "Void" room which appears occassionally when joining a room
-- [ ] Create a separate package.json to copy into www for deploy
 - [ ] Space-themed CSS styling
-- [ ] User Authentication (JWT)
+- [ ] AES Encryption 
+- [ ] User Authentication (JWT) maybe overkill but eh..
 - [ ] Models
 - [ ] React propTypes
-- [ ] aes Encryption 
 
 ## Links
 https://scream-into-void.herokuapp.com/
